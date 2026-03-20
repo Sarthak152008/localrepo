@@ -4,3 +4,107 @@
 
 
 
+import numpy as np
+import matplotlib.pyplot as plt
+
+# -----------------------------
+# Theme
+# -----------------------------
+plt.rcParams.update({
+    "figure.facecolor": "#f3f4f6",
+    "axes.facecolor": "white",
+    "axes.edgecolor": "#d1d5db",
+    "axes.titleweight": "bold",
+    "font.size": 10
+})
+
+fig = plt.figure(figsize=(18,10))
+
+# -----------------------------
+# Data
+# -----------------------------
+months = ["Jan","Feb","Mar","Apr","May","Jun" ]
+sales = [220, 210, 180, 170, 140, 120 , ]
+regions = ["North","South","East","West"]
+regional_load = [420, 360, 300, 280]
+
+trip_types = ["Internal","External","Training","Other"]
+trip_counts = [320, 420, 90, 60]
+
+avg_cost = [520, 480, 450, 430]
+categories = ["0–3 days","4–7 days","8–14 days","15+ days"]
+
+# -----------------------------
+# Tile 1 – Regional Load
+# -----------------------------
+ax1 = fig.add_axes([0.02,0.55,0.32,0.38])
+ax1.bar(regions, regional_load, color=["#3b82f6","#60a5fa","#93c5fd","#bfdbfe"])
+ax1.set_title("Regional Load")
+ax1.grid(axis="y", alpha=0.3)
+
+# -----------------------------
+# Tile 2 – Sales Trend
+# -----------------------------
+ax2 = fig.add_axes([0.36,0.55,0.32,0.38])
+ax2.bar(months, sales, color="#ef4444")
+ax2.set_title("Sales by Month")
+ax2.grid(axis="y", alpha=0.3)
+
+# -----------------------------
+# Tile 3 – Number of Trips
+# -----------------------------
+ax3 = fig.add_axes([0.70,0.55,0.28,0.38])
+ax3.pie(trip_counts, labels=trip_types,
+        colors=["#3b82f6","#ef4444","#60a5fa","#fca5a5"],
+        autopct="%1.0f%%")
+ax3.set_title("Number of Trips")
+
+# -----------------------------
+# Tile 4 – Average Cost
+# -----------------------------
+ax4 = fig.add_axes([0.02,0.28,0.32,0.22])
+ax4.barh(categories, avg_cost, color="#3b82f6")
+ax4.set_title("Average Cost per Mile")
+
+# -----------------------------
+# Tile 5 – Delayed Flights (Line)
+# -----------------------------
+ax5 = fig.add_axes([0.36,0.28,0.32,0.22])
+delay = np.cumsum(np.random.randint(-5,10,30))
+ax5.plot(delay, color="#ef4444", linewidth=2)
+ax5.set_title("Delayed Flights Trend")
+ax5.grid(alpha=0.3)
+
+# -----------------------------
+# Tile 6 – KPI Card
+# -----------------------------
+ax6 = fig.add_axes([0.70,0.28,0.28,0.22])
+ax6.axis("off")
+ax6.text(0.5,0.6,"522",fontsize=40,ha="center",weight="bold")
+ax6.text(0.5,0.3,"Total Trips",ha="center",color="gray")
+
+# -----------------------------
+# Tile 7 – Budget Remaining
+# -----------------------------
+ax7 = fig.add_axes([0.02,0.05,0.32,0.18])
+budget = [5,7,6,9,12,14]
+ax7.bar(months, budget, color="#60a5fa")
+ax7.set_title("Budget Remaining")
+
+# -----------------------------
+# Tile 8 – Variance KPI
+# -----------------------------
+ax8 = fig.add_axes([0.36,0.05,0.32,0.18])
+ax8.axis("off")
+ax8.text(0.5,0.6,"$1.39M",fontsize=24,ha="center",weight="bold",color="#ef4444")
+ax8.text(0.5,0.3,"Variance to Budget",ha="center")
+
+# -----------------------------
+# Tile 9 – Avg Trip Cost
+# -----------------------------
+ax9 = fig.add_axes([0.70,0.05,0.28,0.18])
+ax9.axis("off")
+ax9.text(0.5,0.6,"$723.16",fontsize=24,ha="center",weight="bold",color="#3b82f6")
+ax9.text(0.5,0.3,"Avg Cost per Trip",ha="center")
+
+plt.show()
